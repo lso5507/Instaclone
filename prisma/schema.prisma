@@ -16,5 +16,5 @@ model Movie{
   year Int
   genre String? // Not Require => ?
   createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt
 }
