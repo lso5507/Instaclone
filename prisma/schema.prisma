@@ -9,12 +9,13 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
-
-model Movie{
-  id Int @default(autoincrement())@id
-  title String
-  year Int
-  genre String? // Not Require => ?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model User{
+    id Int @id @default(autoincrement())
+    firstName String
+    lastName String?
+    userName String @unique
+    email String @unique
+    password String // Not Encrypt?
+    createdAt DateTime @default(now())  
+    updatedAt DateTime @updatedAt
 }
