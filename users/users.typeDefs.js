@@ -9,6 +9,9 @@ export default gql`
         email:String!
         createdAt:String!
         updatedAt:String!
+        avatar:Upload
+        bio:String
+
         # password:String! 요구 안할거임.
 
     }

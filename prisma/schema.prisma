@@ -18,4 +18,7 @@ model User{
     password String // Not Encrypt?
     createdAt DateTime @default(now())  
     updatedAt DateTime @updatedAt
+    avatar String?
+    bio String?
+    
 }
