@@ -11,6 +11,8 @@ export default gql`
         updatedAt:String!
         avatar:Upload
         bio:String
+        following:[User]
+        follower:[User]
 
         # password:String! 요구 안할거임.
 
