@@ -13,6 +13,10 @@ export default gql`
         bio:String
         following:[User]
         follower:[User]
+        totalFollowing:Int!
+        totalFollowers:Int!
+        isMe:Boolean!
+        isFollowing:Boolean!
 
         # password:String! 요구 안할거임.
 
