@@ -1,5 +1,6 @@
 import client from "../../client";
 import { protectedResolver } from "../../users/users.utils";
+import { processHashtags } from "../photo.utils";
 const resolverFn = async(_,{file,caption},{loggedInUser})=>{
 
     if(!loggedInUser){
@@ -11,12 +12,8 @@ const resolverFn = async(_,{file,caption},{loggedInUser})=>{
     }
     let hashtagObj = [];
     if(caption){
-        const hashtags = caption.match(/#[\w]+/g)
-        
-       hashtagObj= hashtags.map((hashtag)=>({
-             where:{hashtag},
-             create:{hashtag}
-         }))
+
+        hashtagObj=  processHashtags(caption)
     } 
     console.log(hashtagObj)
     return client.photo.create({

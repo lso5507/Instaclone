@@ -25,7 +25,7 @@ export default{
                 },
             }).photos({
                 skip:page?1:0,
-                take:5,
+                take:10,
                 cursor:{
                     id:page
                 }
