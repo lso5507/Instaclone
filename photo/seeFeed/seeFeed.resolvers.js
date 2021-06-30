@@ -4,6 +4,7 @@ export default{
 
     Query:{
         seeFeed:async(_,__,{loggedInUser})=>{
+            
            const ok = await client.photo.findMany({
                 where:{
                     OR:[
