@@ -3,8 +3,10 @@ import client from "../client";
 export default{
 
     Photo:{
-        user:({id})=>client.user.findUnique({
-            where:{id}
+        user:({userId})=>client.user.findUnique({
+            where:{
+                id:userId
+            }
         }),
         hashtags:({id})=>client.hashtag.findMany({
             where:{
@@ -13,6 +15,7 @@ export default{
                 }
             }
         }),
+        likes:({id})=>client.like.count({where:{photoId:id}})
         
     },
     Hashtag:{

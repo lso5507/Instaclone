@@ -5,10 +5,12 @@ export default {
         
         seePhoto:async(_,{id})=>{ 
             
-            console.log(id)
-            return client.photo.findUnique({
+
+            const ok= await client.photo.findUnique({
                 where:{id}
             })
+            console.log(ok)
+            return ok;
     }
     }
 }
