@@ -8,13 +8,13 @@
     "dev": "nodemon --exec babel-node server",
     "migrate": "npx prisma migrate dev",
     "studio": "npx prisma studio"
-  
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^2.23.0",
+    "@paljs/plugins": "^3.6.0",
+    "@prisma/client": "^2.26.0",
     "apollo-server": "^2.25.0",
     "apollo-server-express": "^2.25.1",
     "bcrypt": "^5.0.1",
@@ -31,7 +31,7 @@
     "@babel/node": "^7.14.5",
     "@babel/preset-env": "^7.14.4",
     "nodemon": "^2.0.7",
-    "prisma": "^2.23.0"
+    "prisma": "^2.26.0"
   },
   "resolutions": {
     "fs-capacitor": "^6.2.0",

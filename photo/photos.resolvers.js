@@ -15,7 +15,9 @@ export default{
                 }
             }
         }),
-        likes:({id})=>client.like.count({where:{photoId:id}})
+        likes:({id})=>client.like.count({where:{photoId:id}}),
+        isMe:({userId},_,{loggedInUser})=> loggedInUser?loggedInUser===userId:false,
+        comments:({id})=>client.comment.findMany({where:{photoId:id}})
         
     },
     Hashtag:{
