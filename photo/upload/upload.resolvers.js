@@ -1,8 +1,9 @@
 import client from "../../client";
+import { uploadToS3 } from "../../shared/shared.utils";
 import { protectedResolver } from "../../users/users.utils";
 import { processHashtags } from "../photo.utils";
 const resolverFn = async(_,{file,caption},{loggedInUser})=>{
-
+    console.log(loggedInUser)
     if(!loggedInUser){
         
         return{
@@ -15,10 +16,11 @@ const resolverFn = async(_,{file,caption},{loggedInUser})=>{
 
         hashtagObj=  processHashtags(caption)
     } 
-    console.log(hashtagObj)
-    return client.photo.create({
+    //AWS Upload
+    const fileUrl = await uploadToS3(file,loggedInUser.id,"Uploads")
+    await client.photo.create({
         data:{
-            file,
+            file:fileUrl,
             caption,
             user:{
                 connect:{
@@ -32,6 +34,10 @@ const resolverFn = async(_,{file,caption},{loggedInUser})=>{
             })
         }
     })
+    return {
+        ok:true,
+        
+    }
 }
 export default{
     Mutation:{

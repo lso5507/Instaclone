@@ -22,11 +22,18 @@ export const getUser = async(token) =>{
 }
 
 export const protectedResolver = (ourResolver)=>(root,args,context,info)=>{
-    
-    if(!context.loggedInUser){
-        return{
-            ok:false,
-            error:"Please check to login"
+
+    const query =  info.operation.operation === "query"
+    if(query){
+        if(!context.loggedInUser){
+            return null
+        }
+    }else{
+        if(!context.loggedInUser){
+            return{
+                ok:false,
+                error:"Please check to login"
+            }
         }
     }
     console.log("protectedResolver In Success")

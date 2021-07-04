@@ -1,9 +1,10 @@
 import client from "../../client";
+import { protectedResolver } from "../../users/users.utils";
 
 export default{
 
     Query:{
-        seeFeed:async(_,__,{loggedInUser})=>{
+        seeFeed:protectedResolver(async(_,__,{loggedInUser})=>{
             
            const ok = await client.photo.findMany({
                 where:{
@@ -31,6 +32,6 @@ export default{
             console.log(ok)
             return ok;
           
-        }
+        })
     }
 }
