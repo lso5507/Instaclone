@@ -30,17 +30,18 @@ export default {
             }
             let room =null
             const Users = createUserList(userId)
-            console.log("loggedInUser.id:::",loggedInUser.id)
+            const userCount=Users.push({id:loggedInUser.id})
+            console.log("Users:::",Users)
             //룸 생성 로직
             if(!roomId){
                  room= await client.room.create({   // Room이 없을시 룸 생성
                     data:{
                         users:{
                             connect:Users,
-                            connect:{
-                                id:loggedInUser.id
-                            }
-                        }   
+                        
+                        },
+                        read:userCount
+
                     }
                 })
                 console.log("roomCreate::",room)
