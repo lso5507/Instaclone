@@ -8,7 +8,7 @@ export default gql`
     }
     type Mutation{
         login(
-            username:String!
+            userName:String!
             password:String!
             ):LoginResult
         

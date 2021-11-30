@@ -5,7 +5,9 @@ export default {
     Mutation:{
 
         login : async(_,{userName,password})=>{
-            const user=  await client.user.findFirst({where:{userName}});
+            console.log(userName)
+            const user=  await client.user.findUnique({where:{userName}});
+            
             if(!user){
                 return{
                     ok:false,
@@ -19,7 +21,8 @@ export default {
                     error:"Incorrect Password",
                 };
             }
-            // 정보가 맞을때.
+            // 정보가 맞을때.   
+            console.log("user::",user)
 
             const token = await jwt.sign({id:user.id},process.env.SECRET_KEY)
             return {
