@@ -1,38 +1,24 @@
 import client from "../client";
 
 export default {
-    Room:{
-        messages:async ({id})=>{
-            console.log("id::",id)
-            const result=  await client.room.findMany({where:{
+  Room:{
+      unReadTotal:async({id},_,{loggedInUser})=>{
+        //각 사용자 별로 해당 Room에 대한 unReadTotal을 보여줘야 한다.
+        return await client.room.count({
+            where:{
                 id,
                 messages:{
-                    some:{roomId:id}
+                    every:{
+                        NOT:{
+                            readUser:{
+                                has:loggedInUser.id
+                            }
+                        }
+                    }
                 }
-            }},)
-            console.log(result)
-            return result
-        },
-        users:({id})=>client.room.findFirst({where:{id}}).users(),
-
-        // 해당 Room의 안읽은메시지 표시(사용자 별)
-        // unReadTotal:({id},_,{loggedInUser})=>client.room.count({
-        //     where:{
-        //         id,
-        //         read:false,
-    
-        //     },
-        //     users:{
-        //         where:{
-        //             Not
-        //         }
-        //     }
-            
-        // })
-      
-    },
-    Message:{
-  
-    }
+            }
+        })
+      }
+  }
     
 }

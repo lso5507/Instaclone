@@ -3,11 +3,11 @@ import { gql } from "apollo-server-express";
 export default gql`
     type Room{
         id:Int!
-        createdAt:String!
-        updatedAt:String!
+        createdAt:String
+        updatedAt:String
         messages:[Message]
-        users:[User]!
-
+        users:[User]
+        unReadTotal:Int
     }
     type Message{
         user:User!

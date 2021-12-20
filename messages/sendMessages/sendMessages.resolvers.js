@@ -31,7 +31,7 @@ export default {
             let room =null
             const Users = createUserList(userId)
             const userCount=Users.push({id:loggedInUser.id})
-            console.log("Users:::",Users)
+            
             //룸 생성 로직
             if(!roomId){
                  room= await client.room.create({   // Room이 없을시 룸 생성
@@ -40,11 +40,12 @@ export default {
                             connect:Users,
                         
                         },
-                        read:userCount
+               
 
                     }
                 })
                 console.log("roomCreate::",room)
+                
             }
             else{    // 이미 생성 된 대화방이 있을경우
                 room = await client.room.findUnique({
@@ -69,7 +70,9 @@ export default {
                         connect:{
                             id:room.id
                         }
-                    }
+                    },
+                    readUser:loggedInUser.id
+
                 }
             })
             return {
