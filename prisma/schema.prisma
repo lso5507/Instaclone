@@ -92,4 +92,5 @@ model Message{
     user   User @relation(fields: [userId],references:[id])
     userId Int
     readUser Int[] 
+    read Boolean @default(false)
 }

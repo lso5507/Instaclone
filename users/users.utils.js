@@ -20,7 +20,7 @@ export const getUser = async(token) =>{
         }
     }
     catch(err){
-        console.err(err)
+        console.log(err)
         return null;
     }
 }

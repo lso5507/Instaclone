@@ -12,7 +12,7 @@ export const uploadToS3 = async(avatar,userid,folerName)=>{
     const readStream = createReadStream();
     
     const ok = await new AWS.S3().upload({
-        Bucket:"instaclone-upload-lee",
+        Bucket:"swlee-instaclone",
         Key:newFileName,
         ACL:"public-read",
         Body:readStream

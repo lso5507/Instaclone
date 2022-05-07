@@ -1,4 +1,6 @@
 import client from "../../client";
+import { NEW_MESSAGE } from "../../constants";
+import pubsub from "../../pubsub";
 import { protectedResolver } from "../../users/users.utils";
 
 const createUserList = (userArray)=>{
@@ -52,13 +54,22 @@ export default {
                     where:{id:roomId},
                     select:{id:true,users:true}
                 })
-                console.log(room)
+                // console.log(room)
+                //DB 내 룸이 없을 시 
+                if(!room){
+                    return{
+                        ok:false,
+                        error:"Room Not Found"
+                    }
+                }
+            
+                
 
             }
             //유저 연결 로직
             
             console.log(room)
-            await client.message.create({   //메시지 전송
+            const message = await client.message.create({   //메시지 전송
                 data:{
                     payload,
                     user:{
@@ -75,6 +86,7 @@ export default {
 
                 }
             })
+            pubsub.publish(NEW_MESSAGE,{roomUpdates:{...message}})
             return {
                 ok:true
             }
