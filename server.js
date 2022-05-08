@@ -9,13 +9,29 @@ import http from "http"
 
 const server = new ApolloServer({
     resolvers,typeDefs,
-    context:async({req}) =>{
-        if(req){
+    context:async(ctx) =>{
+        if(ctx.req){
             return{
-                loggedInUser:await getUser(req.headers.token)
+                loggedInUser:await getUser(ctx.req.headers.token)
                 }
+        }else{ //WebSocket
+            const {connection:{context}}=ctx //ctx.connection.context
+            return{
+                loggedInUser:context.loggedInUser
+            }
         }
     
+    },
+    subscriptions:{
+        onConnect:async({token})=>{
+            if(!token){
+                throw new Error("you can't listen")
+            }
+            //Context 영역에 전달이 됨
+            const loggedInUser = await getUser(token);
+            
+            return {loggedInUser}
+        }
     }
 
 })

@@ -7,12 +7,21 @@ export default{
     Subscription:{
         roomUpdates:{
             subscribe:async(root,args,context,info)=>{
-                const room = await client.room.findUnique({
-                    where:{id:args.id},
+                const room = await client.room.findFirst({
+                    where:{
+                        id:args.id,
+                        users:{
+                            some:{
+                                id:context.loggedInUser.id
+                            }
+                        }
+                    },
                     select:{
                         id:true
                     }
+
                 })
+                
                 if(!room){
                     // Subscription 사용 시 Null 리턴은 자제
                     throw new Error("You Shall not see this")
@@ -25,8 +34,28 @@ export default{
                 */
                 return withFilter(
                     ()=>pubsub.asyncIterator(NEW_MESSAGE),
-                    ({roomUpdates},{id})=>{
-                        return roomUpdates.roomId===id;
+                    async ({roomUpdates},{id},{loggedInUser})=>{
+                        
+                        if (roomUpdates.roomId===id){ //전달받은 roomId가 같을 때
+                            const room = await client.room.findFirst({
+                                where:{
+                                    id:args.id,
+                                    users:{
+                                        some:{
+                                            id:loggedInUser.id
+                                        }
+                                    }
+                                },
+                                select:{
+                                    id:true
+                                }
+            
+                            })
+                            if(!room){
+                                return false
+                            }
+                            return true
+                        }
                     }    
                 )(root,args,context,info)                 
                 

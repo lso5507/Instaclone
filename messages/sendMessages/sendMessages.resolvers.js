@@ -67,8 +67,7 @@ export default {
 
             }
             //유저 연결 로직
-            
-            console.log(room)
+        
             const message = await client.message.create({   //메시지 전송
                 data:{
                     payload,
